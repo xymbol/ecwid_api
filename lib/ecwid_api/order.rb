@@ -3,7 +3,7 @@ module EcwidApi
   class Order < Entity
     self.url_root = "orders"
 
-    ecwid_reader :orderNumber, :vendorOrderNumber, :subtotal, :total, :email,
+    ecwid_reader :id, :orderNumber, :vendorOrderNumber, :subtotal, :total, :email,
                  :paymentMethod, :paymentModule, :tax, :ipAddress,
                  :couponDiscount, :paymentStatus, :fulfillmentStatus,
                  :refererUrl, :orderComments, :volumeDiscount, :customerId,
@@ -34,11 +34,29 @@ module EcwidApi
       DELIVERED
       WILL_NOT_DELIVER
       RETURNED
-    )
+      READY_FOR_PICKUP
+      OUT_FOR_DELIVERY
+    ).freeze
 
-    # Public: Gets the unique ID of the order
-    def id
-      order_number
+    VALID_PAYMENT_STATUSES = %w(
+      AWAITING_PAYMENT
+      PAID
+      CANCELLED
+      REFUNDED
+      PARTIALLY_REFUNDED
+      INCOMPLETE
+    ).freeze
+
+    # @deprecated Please use {#id} instead
+    def vendor_order_number
+      warn "[DEPRECATION] `vendor_order_number` is deprecated.  Please use `id` instead."
+      id
+    end
+
+    # @deprecated Please use {#id} instead
+    def order_number
+      warn "[DEPRECATION] `order_number` is deprecated.  Please use `id` instead."
+      id
     end
 
     # Public: Returns the billing person
@@ -51,7 +69,7 @@ module EcwidApi
 
     # Public: Returns the shipping person
     #
-    # If there isn't a shipping_person, then it is assumed to be the 
+    # If there isn't a shipping_person, then it is assumed to be the
     # billing_person
     #
     def shipping_person
@@ -72,6 +90,18 @@ module EcwidApi
     end
 
     def fulfillment_status
+      super && super.downcase.to_sym
+    end
+
+    def payment_status=(status)
+      status = status.to_s.upcase
+      unless VALID_PAYMENT_STATUSES.include?(status)
+        raise Error("#{status} is an invalid payment status")
+      end
+      super(status)
+    end
+
+    def payment_status
       super && super.downcase.to_sym
     end
 

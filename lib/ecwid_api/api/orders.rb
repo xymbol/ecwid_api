@@ -20,13 +20,13 @@ module EcwidApi
         end
       end
 
-      # Public: Finds a an Order given an Ecwid order_number
+      # Public: Finds a an Order given an Ecwid id
       #
-      # order_number - an Integer that is the Ecwid Order number
+      # id - an Integer that is the Ecwid Order number
       #
       # Returns an EcwidApi::Order if found, nil if not
-      def find(order_number)
-        response = client.get("orders/#{order_number}")
+      def find(id)
+        response = client.get("orders/#{id}")
         if response.success?
           Order.new(response.body, client: client)
         end
