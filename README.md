@@ -2,14 +2,14 @@
 
 A gem to interface with the Ecwid REST APIs.
 
-[![Code Climate](https://codeclimate.com/github/davidbiehl/ecwid_api.png)](https://codeclimate.com/github/davidbiehl/ecwid_api)
-[![Build Status](https://travis-ci.org/davidbiehl/ecwid_api.svg?branch=master)](https://travis-ci.org/davidbiehl/ecwid_api)
+[![Code Climate](https://codeclimate.com/github/vishalzambre/ecwid_api.png)](https://codeclimate.com/github/vishalzambre/ecwid_api)
+[![Build Status](https://travis-ci.org/vishalzambre/ecwid_api.svg?branch=master)](https://travis-ci.org/vishalzambre/ecwid_api)
 
 ## API v3 Warning!
 
 This is for the latest version of the API, also known as v3, which is currently
 in closed beta! The (incomplete) v1 API is still available on the
-[api-v1 branch](https://github.com/davidbiehl/ecwid_api/tree/api-v1).
+[api-v1 branch](https://github.com/vishalzambre/ecwid_api/tree/api-v1).
 
 To participate in the beta, please contact Ecwid and they will give you the
 information necessary to configure and authorize your application with OAuth2.
@@ -196,11 +196,19 @@ that feature.
 
 ## Contributing
 
-1. Fork it ( http://github.com/davidbiehl/ecwid_api/fork )
+1. Fork it ( http://github.com/vishalzambre/ecwid_api/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+## Authors
+
+* **Vishal Zambre** - *Current work* - [vishalzambre](https://github.com/vishalzambre)
+* **David Biehl** - *Initial work* - [davidbiehl](https://github.com/davidbiehl)
+
+See also the list of [contributors](https://github.com/vishalzambre/ecwid_api/contributors) who participated in this project.
+
 
 ## License
 
