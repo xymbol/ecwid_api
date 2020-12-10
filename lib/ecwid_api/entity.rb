@@ -1,8 +1,8 @@
 module EcwidApi
   class Entity
     # Private: Gets the Hash of data
-    attr_reader :data
-    protected   :data
+    attr_reader :data, :new_data
+    protected   :data, :new_data
 
     attr_reader :client
     private     :client
@@ -172,6 +172,18 @@ module EcwidApi
 
     def to_json(*args)
       data.to_json(*args)
+    end
+
+    def marshal_dump
+      [@data, @new_data]
+    end
+
+    def marshal_load(array)
+      @data, @new_data = *array
+    end
+
+    def ==(other)
+      data == other.data && new_data == other.new_data
     end
   end
 end

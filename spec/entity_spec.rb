@@ -42,7 +42,6 @@ describe EcwidApi::Entity do
     end
   end
 
-
   describe "#[]" do
     it "gets data with a symbol key" do
       subject[:id].should == 123
@@ -61,12 +60,21 @@ describe EcwidApi::Entity do
     end
   end
 
+  describe "#==" do
+    context "with and without a client" do
+      let(:other) { EntitySubject.new(data, client: client) }
+
+      it "returns true" do
+        expect(subject).to eq(other)
+      end
+    end
+  end
+
   describe "overrides" do
     its(:override) { should == "UPCASE ME" }
   end
 
   describe "accessors" do
-
     describe "::ecwid_reader" do
       it "makes data accessible with a snake cased method" do
         subject.parent_id.should == 456
@@ -102,6 +110,25 @@ describe EcwidApi::Entity do
 
       it "doesn't have an access method" do
         expect { subject.hidden }.to raise_error(NoMethodError)
+      end
+    end
+  end
+
+  describe "marshaling" do
+    context "with a client" do
+      subject { EntitySubject.new(data, client: client) }
+
+      describe "dump" do
+        it "does not raise" do
+          expect { Marshal.dump(subject) }.not_to raise_error
+        end
+      end
+
+      describe "load" do
+        it "converts a dumped object" do
+          source = Marshal.dump(subject)
+          expect(Marshal.load(source)).to eq(subject)
+        end
       end
     end
   end
